@@ -23,25 +23,26 @@ export async function verifyPassword(
   return bcrypt.compare(password, hash);
 }
 
-export function createAccessToken(payload: TokenPayload): string {
+// Async wrappers below required by Next.js 'use server' directive
+export async function createAccessToken(payload: TokenPayload): Promise<string> {
   const options: SignOptions = {
     expiresIn: config.jwt.expiresIn as SignOptions['expiresIn'],
   };
   return jwt.sign(payload, config.jwt.secret, options);
 }
 
-export function createRefreshToken(payload: TokenPayload): string {
+export async function createRefreshToken(payload: TokenPayload): Promise<string> {
   const options: SignOptions = {
     expiresIn: '7d' as SignOptions['expiresIn'],
   };
   return jwt.sign(payload, config.jwt.secret, options);
 }
 
-export function verifyToken(token: string): TokenPayload {
+export async function verifyToken(token: string): Promise<TokenPayload> {
   return jwt.verify(token, config.jwt.secret) as TokenPayload;
 }
 
-export function getUserFromToken(request: Request): TokenPayload | null {
+export async function getUserFromToken(request: Request): Promise<TokenPayload | null> {
   try {
     const cookieHeader = request.headers.get('cookie') || '';
     const cookies = Object.fromEntries(
@@ -62,7 +63,7 @@ export function getUserFromToken(request: Request): TokenPayload | null {
 
     if (!token) return null;
 
-    return verifyToken(token);
+    return await verifyToken(token);
   } catch {
     return null;
   }
