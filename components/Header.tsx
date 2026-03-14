@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import {
   Search,
@@ -181,9 +182,11 @@ export default function Header({ onMobileMenuToggle }: HeaderProps) {
             aria-expanded={dropdownOpen}
           >
             {user?.avatar_url ? (
-              <img
+              <Image
                 src={user.avatar_url}
                 alt={user.full_name ?? user.username}
+                width={32}
+                height={32}
                 className="h-8 w-8 rounded-full border border-white/10 object-cover"
               />
             ) : (

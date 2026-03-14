@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard,
@@ -201,9 +202,11 @@ export default function Sidebar({ mobileOpen, onMobileClose }: SidebarProps) {
         >
           {/* Avatar */}
           {user?.avatar_url ? (
-            <img
+            <Image
               src={user.avatar_url}
               alt={user.full_name ?? user.username}
+              width={36}
+              height={36}
               className="h-9 w-9 shrink-0 rounded-full border border-white/10 object-cover"
             />
           ) : (
