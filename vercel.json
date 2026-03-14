@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npx prisma generate && next build",
+  "buildCommand": "pnpm exec prisma generate && pnpm build",
   "framework": "nextjs",
   "regions": ["iad1"]
 }
