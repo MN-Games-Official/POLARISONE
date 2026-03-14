@@ -288,19 +288,24 @@ export default function AIFormGenerator({
 
   /* ---- Generate ---- */
   const handleGenerate = useCallback(async () => {
-    if (!applicationData.id) {
-      setError('Application ID is missing. Please save the application first.');
-      return;
-    }
-
     setLoading(true);
     setError(null);
 
     try {
-      const response = await fetch(`/api/applications/${applicationData.id}/generate`, {
+      const response = await fetch('/api/applications/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ questionCount: count, vibe, customInstructions: instructions }),
+        body: JSON.stringify({
+          description: applicationData.description,
+          group_id: applicationData.group_id,
+          name: applicationData.name,
+          primary_color: applicationData.primary_color,
+          questions_count: count,
+          rank: applicationData.target_role,
+          secondary_color: applicationData.secondary_color,
+          vibe: vibe,
+          customInstructions: instructions,
+        }),
       });
 
       if (!response.ok) {
