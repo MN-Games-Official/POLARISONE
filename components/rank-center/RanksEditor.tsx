@@ -301,7 +301,7 @@ export default function RanksEditor({ rank, onSave, onClose }: RanksEditorProps)
     >
       <div className="space-y-4">
         {submitError && (
-          <Alert type="error" title="Validation Error" onClose={() => setSubmitError(null)}>
+          <Alert type="error" title="Validation Error" onDismiss={() => setSubmitError(null)}>
             {submitError}
           </Alert>
         )}

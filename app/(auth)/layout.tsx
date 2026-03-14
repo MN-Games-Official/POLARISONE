@@ -1,14 +1,16 @@
-import React from 'react';
+'use client';
 
-export const metadata = {
-  title: 'Polaris Pilot - Authentication',
-  description: 'Sign in to your Polaris Pilot account',
-};
+import React, { Suspense } from 'react';
+import { AuthProvider } from '@/hooks/useAuth';
 
 export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <AuthProvider>
+      <Suspense>{children}</Suspense>
+    </AuthProvider>
+  );
 }

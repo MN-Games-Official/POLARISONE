@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter, useParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { api } from '@/lib/api-client';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -35,7 +35,6 @@ interface ApplicationData {
 }
 
 export default function EditApplicationPage() {
-  const router = useRouter();
   const params = useParams();
   const id = params.id as string;
 

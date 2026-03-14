@@ -33,7 +33,6 @@ interface Question {
 
 interface QuestionEditorProps {
   question?: Question;
-  _questionCount?: number;
   shortAnswerCount: number;
   onSave: (question: Question) => void;
   onClose: () => void;
@@ -161,7 +160,6 @@ function QuestionPreview({ data }: { data: Partial<Question> }) {
 
 export default function QuestionEditor({
   question,
-  questionCount: _questionCount,
   shortAnswerCount,
   onSave,
   onClose,

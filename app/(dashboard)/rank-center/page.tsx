@@ -164,7 +164,7 @@ export default function RankCenterPage() {
                   </div>
                 </div>
 
-                <Badge variant="default" size="sm">
+                <Badge variant="secondary" size="sm">
                   Group: {rc.group_id}
                 </Badge>
 

@@ -17,7 +17,6 @@ import {
   Send,
   Edit,
   Trash2,
-  MoreVertical,
 } from 'lucide-react';
 
 interface Application {
@@ -169,10 +168,10 @@ export default function ApplicationCenterPage() {
                 </div>
 
                 <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500">
-                  <Badge variant="default" size="sm">
+                  <Badge variant="secondary" size="sm">
                     Group: {app.group_id}
                   </Badge>
-                  <Badge variant="default" size="sm">
+                  <Badge variant="secondary" size="sm">
                     Pass: {app.pass_score}%
                   </Badge>
                 </div>

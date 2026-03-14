@@ -8,7 +8,7 @@ import { Card } from '@/components/ui/Card';
 import { Alert } from '@/components/ui/Alert';
 import { Loading } from '@/components/ui/Loading';
 import { Badge } from '@/components/ui/Badge';
-import { ArrowLeft, Plus, Trash2, Copy, RefreshCw, Sparkles } from 'lucide-react';
+import { ArrowLeft, Plus, Trash2, Copy, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
 interface PolarisKey {

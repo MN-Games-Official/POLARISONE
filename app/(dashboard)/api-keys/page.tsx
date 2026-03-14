@@ -146,7 +146,7 @@ export default function ApiKeysPage() {
 
             <div className="mb-4 flex items-center gap-2">
               <span className="text-sm text-gray-400">Active Keys:</span>
-              <Badge variant="default" size="sm">
+              <Badge variant="secondary" size="sm">
                 {polarisKeys.filter((k) => k.is_active).length}
               </Badge>
             </div>
