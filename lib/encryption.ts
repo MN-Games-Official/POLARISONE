@@ -13,7 +13,8 @@ function getKeyBuffer(): Buffer {
     .digest();
 }
 
-export function encryptKey(plaintext: string): string {
+// Async required by Next.js 'use server' directive
+export async function encryptKey(plaintext: string): Promise<string> {
   const iv = crypto.randomBytes(IV_LENGTH);
   const cipher = crypto.createCipheriv(ALGORITHM, getKeyBuffer(), iv);
   const encrypted = Buffer.concat([
@@ -23,7 +24,8 @@ export function encryptKey(plaintext: string): string {
   return `${iv.toString('hex')}:${encrypted.toString('hex')}`;
 }
 
-export function decryptKey(encrypted: string): string {
+// Async required by Next.js 'use server' directive
+export async function decryptKey(encrypted: string): Promise<string> {
   const [ivHex, encryptedHex] = encrypted.split(':');
   if (!ivHex || !encryptedHex) {
     throw new Error('Invalid encrypted value');

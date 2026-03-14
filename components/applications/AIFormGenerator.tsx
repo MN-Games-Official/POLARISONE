@@ -164,12 +164,10 @@ function ThinkingAnimation() {
 
 function GeneratedQuestionCard({
   question,
-  index: _index,
   selected,
   onToggle,
 }: {
   question: Question;
-  _index: number;
   selected: boolean;
   onToggle: () => void;
 }) {
@@ -477,11 +475,10 @@ export default function AIFormGenerator({
           </div>
 
           <div className="max-h-[400px] space-y-2 overflow-y-auto pr-1">
-            {generated.map((q, i) => (
+            {generated.map((q) => (
               <GeneratedQuestionCard
                 key={q.id}
                 question={q}
-                index={i}
                 selected={selected.has(q.id)}
                 onToggle={() => toggleQuestion(q.id)}
               />

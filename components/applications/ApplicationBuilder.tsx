@@ -407,7 +407,6 @@ export default function ApplicationBuilder({
     handleSubmit,
     watch,
     control,
-    setValue: _setValue,
     formState: { errors, isDirty },
   } = useForm<FormValues>({
     defaultValues: {
@@ -769,7 +768,6 @@ export default function ApplicationBuilder({
       {showQuestionEditor && (
         <QuestionEditor
           question={editingQuestion}
-          questionCount={questions.length}
           shortAnswerCount={shortAnswerCount}
           onSave={editingQuestion ? updateQuestion : addQuestion}
           onClose={() => {

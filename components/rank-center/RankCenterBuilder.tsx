@@ -311,7 +311,6 @@ export default function RankCenterBuilder({
     control,
     handleSubmit,
     watch,
-    setValue: _setValue,
     formState: { errors, isDirty },
   } = useForm<RankCenterFormData>({
     defaultValues: {

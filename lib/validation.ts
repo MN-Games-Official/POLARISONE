@@ -134,7 +134,12 @@ export const submissionSchema = z.object({
   app_id: z.string().uuid(),
   applicant_id: z.string().min(1, 'Applicant ID is required'),
   membership_id: z.string().optional(),
-  answers: z.record(z.string(), z.unknown()),
+  answers: z.array(
+    z.object({
+      question_id: z.string(),
+      answer: z.string(),
+    })
+  ),
 });
 
 export type SignupInput = z.infer<typeof signupSchema>;
