@@ -51,7 +51,7 @@ export async function POST(request: Request) {
     // Grade auto-gradable questions
     const shortAnswerItems: Array<{ index: number; question: string; answer: string; criteria: string; max_score: number }> = [];
 
-    for (const ans of (answers as unknown) as Answer[]) {
+    for (const ans of answers) {
       const question = questionMap.get(ans.question_id);
       if (!question) continue;
 
