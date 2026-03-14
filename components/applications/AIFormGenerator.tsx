@@ -261,99 +261,6 @@ function GeneratedQuestionCard({
 }
 
 /* ------------------------------------------------------------------ */
-/*  Mock AI generation (simulated)                                     */
-/* ------------------------------------------------------------------ */
-
-function generateMockQuestions(
-  count: number,
-  vibe: Vibe,
-  customInstructions: string,
-  appData: ApplicationData,
-): Question[] {
-  const templates: Record<Vibe, string[]> = {
-    professional: [
-      `What experience do you have that qualifies you for the ${appData.target_role} role?`,
-      'Describe a situation where you demonstrated leadership skills.',
-      'What does professionalism mean to you in a Roblox community?',
-      'How would you handle a conflict between two group members?',
-      'What are your long-term goals within this organization?',
-      'Describe your availability and time commitment.',
-      'Why should we select you over other applicants?',
-      'How do you handle constructive criticism?',
-      'What relevant skills do you bring to this position?',
-      'Explain a time you went above and beyond expectations.',
-    ],
-    casual: [
-      'Tell us a bit about yourself!',
-      `Why do you want to join ${appData.name || 'our group'}?`,
-      'What games do you enjoy playing on Roblox?',
-      'How did you hear about us?',
-      'What timezone are you in?',
-      'Got any cool talents or hobbies?',
-      'What would make this group awesome for you?',
-      'Have you been in any other groups before?',
-      'How much time do you spend on Roblox each week?',
-      'Anything else you want us to know?',
-    ],
-    strict: [
-      'Provide your exact Roblox account age and join date.',
-      'List all previous Roblox groups you have been a member of.',
-      'Have you ever been banned from a Roblox group? Explain.',
-      'What specific contributions can you guarantee to this group?',
-      'Describe the chain of command you would follow.',
-      'What actions would constitute a policy violation?',
-      'How would you enforce group rules fairly?',
-      'State the minimum hours you can dedicate per week.',
-      'What disciplinary measures do you consider appropriate?',
-      'Explain our group guidelines in your own words.',
-    ],
-    fun: [
-      'If you were a Roblox item, what would you be and why? 🎮',
-      'Rate your vibes on a scale of 1-10! ✨',
-      'What superpower would you bring to the team?',
-      'Create a catchphrase for yourself!',
-      'If our group was a movie, what genre would it be?',
-      'Describe your dream Roblox game in one sentence.',
-      'What meme best describes you?',
-      'Speed round: cats or dogs? 🐱🐶',
-      'What Roblox achievement are you most proud of?',
-      'Drop your hottest take about Roblox!',
-    ],
-  };
-
-  const pool = templates[vibe];
-  const types: Question['type'][] = [
-    'multiple_choice',
-    'short_answer',
-    'true_false',
-  ];
-  const result: Question[] = [];
-
-  for (let i = 0; i < Math.min(count, pool.length); i++) {
-    const type = types[i % 3];
-    const q: Question = {
-      id: uid(),
-      type,
-      text: pool[i],
-      max_score: 10,
-    };
-
-    if (type === 'multiple_choice') {
-      q.options = ['Option A', 'Option B', 'Option C', 'Option D'];
-      q.correct_answer = 0;
-    } else if (type === 'true_false') {
-      q.correct_answer = true;
-    } else {
-      q.grading_criteria = 'Evaluate based on detail and relevance.';
-    }
-
-    result.push(q);
-  }
-
-  return result;
-}
-
-/* ------------------------------------------------------------------ */
 /*  Main component                                                     */
 /* ------------------------------------------------------------------ */
 
@@ -372,27 +279,37 @@ export default function AIFormGenerator({
 
   /* ---- Generate ---- */
   const handleGenerate = useCallback(async () => {
+    if (!applicationData.id) {
+      setError('Application ID is missing. Please save the application first.');
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 4000));
+      const response = await fetch(`/api/applications/${applicationData.id}/generate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ questionCount: count, vibe, customInstructions: instructions }),
+      });
 
-      const questions = generateMockQuestions(
-        count,
-        vibe,
-        instructions,
-        applicationData,
-      );
-      setGenerated(questions);
-      setSelected(new Set(questions.map((q) => q.id)));
-    } catch {
+      if (!response.ok) {
+        throw new Error('Failed to generate questions');
+      }
+
+      const data = await response.json();
+      const questionsWithIds = data.questions.map((q: any) => ({ ...q, id: uid() }));
+
+      setGenerated(questionsWithIds);
+      setSelected(new Set(questionsWithIds.map((q: Question) => q.id)));
+    } catch (err) {
       setError('Failed to generate questions. Please try again.');
+      console.error(err);
     } finally {
       setLoading(false);
     }
-  }, [count, vibe, instructions, applicationData]);
+  }, [count, vibe, instructions, applicationData.id]);
 
   /* ---- Regenerate ---- */
   const handleRegenerate = useCallback(() => {
