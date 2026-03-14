@@ -36,6 +36,15 @@ interface Question {
   grading_criteria?: string;
 }
 
+interface ApiQuestion {
+  type: 'multiple_choice' | 'short_answer' | 'true_false';
+  text: string;
+  options?: string[];
+  correct_answer?: number | string | boolean;
+  max_score: number;
+  grading_criteria?: string;
+}
+
 interface ApplicationData {
   id?: string;
   name: string;
@@ -112,7 +121,7 @@ function ThinkingAnimation() {
       setStep((p) => (p < STEPS.length - 1 ? p + 1 : p));
     }, 1200);
     return () => clearInterval(interval);
-  }, []);
+  }, [STEPS.length]);
 
   return (
     <div className="flex flex-col items-center py-10">
@@ -299,7 +308,7 @@ export default function AIFormGenerator({
       }
 
       const data = await response.json();
-      const questionsWithIds = data.questions.map((q: any) => ({ ...q, id: uid() }));
+      const questionsWithIds = data.questions.map((q: ApiQuestion) => ({ ...q, id: uid() }));
 
       setGenerated(questionsWithIds);
       setSelected(new Set(questionsWithIds.map((q: Question) => q.id)));
@@ -515,6 +524,6 @@ export default function AIFormGenerator({
           to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
-    </Modal>
+    </Modal
   );
 }

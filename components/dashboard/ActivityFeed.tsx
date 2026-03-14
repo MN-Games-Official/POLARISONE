@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import Image from 'next/image';
 import clsx from 'clsx';
 import {
   FileText,
@@ -144,9 +145,11 @@ function ActivityItem({
       {/* Avatar */}
       <div className="flex-shrink-0 relative">
         {activity.user?.avatar ? (
-          <img
+          <Image
             src={activity.user.avatar}
             alt={activity.user.name}
+            width={36}
+            height={36}
             className="w-9 h-9 rounded-full ring-2 ring-[#2d3748]"
           />
         ) : (
