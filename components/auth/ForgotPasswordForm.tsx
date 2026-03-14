@@ -17,7 +17,6 @@ import {
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Alert } from '@/components/ui/Alert';
-import { Loading } from '@/components/ui/Loading';
 import {
   forgotPasswordSchema,
   type ForgotPasswordInput,

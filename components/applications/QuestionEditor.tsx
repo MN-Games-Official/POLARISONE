@@ -16,7 +16,6 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
-import { Badge } from '@/components/ui/Badge';
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -34,7 +33,7 @@ interface Question {
 
 interface QuestionEditorProps {
   question?: Question;
-  questionCount: number;
+  _questionCount?: number;
   shortAnswerCount: number;
   onSave: (question: Question) => void;
   onClose: () => void;
@@ -162,7 +161,7 @@ function QuestionPreview({ data }: { data: Partial<Question> }) {
 
 export default function QuestionEditor({
   question,
-  questionCount,
+  questionCount: _questionCount,
   shortAnswerCount,
   onSave,
   onClose,

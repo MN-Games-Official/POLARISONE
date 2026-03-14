@@ -6,8 +6,8 @@ import {
   Sparkles,
   X,
   Download,
-  Merge,
-  Replace,
+
+
   Loader2,
   AlertCircle,
   CheckCircle2,
@@ -164,12 +164,12 @@ function ThinkingAnimation() {
 
 function GeneratedQuestionCard({
   question,
-  index,
+  index: _index,
   selected,
   onToggle,
 }: {
   question: Question;
-  index: number;
+  _index: number;
   selected: boolean;
   onToggle: () => void;
 }) {

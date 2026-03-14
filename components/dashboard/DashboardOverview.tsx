@@ -9,12 +9,6 @@ import {
   Key,
   Sparkles,
   Calendar,
-  Star,
-  UserCheck,
-  Shield,
-  Upload,
-  Settings,
-  Bell,
 } from 'lucide-react';
 import { StatsCard } from './StatsCard';
 import { ActivityFeed, type Activity } from './ActivityFeed';

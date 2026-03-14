@@ -407,7 +407,7 @@ export default function ApplicationBuilder({
     handleSubmit,
     watch,
     control,
-    setValue,
+    setValue: _setValue,
     formState: { errors, isDirty },
   } = useForm<FormValues>({
     defaultValues: {
